@@ -1,36 +1,129 @@
-import React from "react";
-
-const books = [
-  {
-    name: "Harry Potter and the Philosopher's Stone",
-    desc: "Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four.",
-    src: "https://images-na.ssl-images-amazon.com/images/I/51UoqRAxwEL._SX331_BO1,204,203,200_.jpg",
-  },
-  {
-    name: "Harry Potter and the Chamber of Secrets",
-    desc: "The Dursleys were so mean and hideous that summer that all Harry Potter wanted was to get back to the Hogwarts School for Witchcraft and Wizardry.",
-    src: "https://res.cloudinary.com/bloomsbury-atlas/image/upload/w_360,c_scale,dpr_1.5/jackets/9781408855669.jpg",
-  },
-  {
-    name: "Harry Potter and the Prisoner of Azkaban",
-    desc: "Harry Potter is lucky to reach the age of thirteen, since he has survived the murderous attacks of the feared Dark Wizard Voldemort three times.",
-    src: "https://m.media-amazon.com/images/I/81NQA1BDlnL._SY466_.jpg",
-  },
-];
+import React, { useState } from "react";
 
 export default function Main() {
+  const [books, setBooks] = useState([
+    {
+      name: "Harry Potter and the Sorcerer's Stone",
+      description:
+        "The first book in the series, where Harry discovers he is a wizard and attends Hogwarts School of Witchcraft and Wizardry.",
+      releaseDate: "1997-06-26",
+      src: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg/220px-Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg",
+      author: "J.K. Rowling",
+      price: 19.99,
+      isOpen: false,
+    },
+    {
+      name: "Harry Potter and the Chamber of Secrets",
+      description:
+        "Harry returns to Hogwarts and uncovers the mystery of the Chamber of Secrets, facing a deadly monster.",
+      releaseDate: "1998-07-02",
+      src: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Harry_Potter_and_the_Chamber_of_Secrets.jpg/220px-Harry_Potter_and_the_Chamber_of_Secrets.jpg",
+      author: "J.K. Rowling",
+      price: 21.99,
+      isOpen: false,
+    },
+    {
+      name: "Harry Potter and the Prisoner of Azkaban",
+      description:
+        "Harry learns about Sirius Black, an escaped prisoner who may have ties to his past.",
+      releaseDate: "1999-07-08",
+      src: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Harry_Potter_and_the_Prisoner_of_Azkaban.jpg/220px-Harry_Potter_and_the_Prisoner_of_Azkaban.jpg",
+      author: "J.K. Rowling",
+      price: 22.99,
+      isOpen: false,
+    },
+    {
+      name: "Harry Potter and the Goblet of Fire",
+      description:
+        "Harry unexpectedly enters the dangerous Triwizard Tournament and faces growing threats from Voldemort.",
+      releaseDate: "2000-07-08",
+      src: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Harry_Potter_and_the_Goblet_of_Fire_cover.png/220px-Harry_Potter_and_the_Goblet_of_Fire_cover.png",
+      author: "J.K. Rowling",
+      price: 24.99,
+      isOpen: false,
+    },
+    {
+      name: "Harry Potter and the Order of the Phoenix",
+      description:
+        "Harry and his friends form Dumbledore’s Army as they fight against the tyranny of Dolores Umbridge and prepare for war.",
+      releaseDate: "2003-06-21",
+      src: "https://upload.wikimedia.org/wikipedia/en/7/70/Harry_Potter_and_the_Order_of_the_Phoenix.jpg",
+      author: "J.K. Rowling",
+      price: 25.99,
+      isOpen: false,
+    },
+    {
+      name: "Harry Potter and the Half-Blood Prince",
+      description:
+        "Harry learns more about Voldemort’s past and the secrets of Horcruxes while dealing with the challenges of growing up.",
+      releaseDate: "2005-07-16",
+      src: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Harry_Potter_and_the_Half-Blood_Prince_cover.png/220px-Harry_Potter_and_the_Half-Blood_Prince_cover.png",
+      author: "J.K. Rowling",
+      price: 26.99,
+      isOpen: false,
+    },
+    {
+      name: "Harry Potter and the Deathly Hallows",
+      description:
+        "Harry, Ron, and Hermione go on a dangerous journey to destroy Voldemort’s Horcruxes and end the war between good and evil.",
+      releaseDate: "2007-07-21",
+      src: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Harry_Potter_and_the_Deathly_Hallows.jpg/220px-Harry_Potter_and_the_Deathly_Hallows.jpg",
+      author: "J.K. Rowling",
+      price: 29.99,
+      isOpen: false,
+    },
+  ]);
+
+  const handleIsOpen = (bookName) => {
+    setBooks(
+      books.map((book) =>
+        book.name === bookName ? { ...book, isOpen: !book.isOpen } : book
+      )
+    );
+  };
+  console.log(books);
   return (
     <main>
       <h1>Books</h1>
       <div className="book-list">
         {books.map((book) => (
           <div className="book-item" key={book.name}>
-            <h2>{book.name}</h2>
-            <p>{book.desc}</p>
             <img src={book.src} alt={book.name} />
+            <h2>{book.name}</h2>
+
+            <div>
+              <div
+                onClick={() => {
+                  handleIsOpen(book.name);
+                }}
+              >
+                {book.isOpen ? (
+                  <div>
+                    <p>{book.description}</p>
+                    <p>{book.author}</p>
+                    <p>{book.releaseDate}</p>
+                  </div>
+                ) : (
+                  <button
+                    style={{
+                      border: "gray solid 2px",
+                      borderRadius: "8px",
+                      backgroundColor: "white",
+                    }}
+                  >
+                    Get Detail
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         ))}
       </div>
     </main>
   );
 }
+// useState
+// isOpen:false для всех
+// находим определенный book
+// меняем поле false=>true
+// true/false показываем/не показываем
