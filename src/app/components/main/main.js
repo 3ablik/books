@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Slider from "../slider/Slider";
+import BooksList from "../books/BooksList";
 
 export default function Main() {
   const [books, setBooks] = useState([
@@ -11,6 +13,7 @@ export default function Main() {
       author: "J.K. Rowling",
       price: "19.99$",
       isOpen: false,
+      id: 0,
     },
     {
       name: "Harry Potter and the Chamber of Secrets",
@@ -21,6 +24,7 @@ export default function Main() {
       author: "J.K. Rowling",
       price: "21.99$",
       isOpen: false,
+      id: 1,
     },
     {
       name: "Harry Potter and the Prisoner of Azkaban",
@@ -31,6 +35,7 @@ export default function Main() {
       author: "J.K. Rowling",
       price: "22.99$",
       isOpen: false,
+      id: 2,
     },
     {
       name: "Harry Potter and the Goblet of Fire",
@@ -41,6 +46,7 @@ export default function Main() {
       author: "J.K. Rowling",
       price: "24.99$",
       isOpen: false,
+      id: 3,
     },
     {
       name: "Harry Potter and the Order of the Phoenix",
@@ -51,6 +57,7 @@ export default function Main() {
       author: "J.K. Rowling",
       price: "25.99$",
       isOpen: false,
+      id: 4,
     },
     {
       name: "Harry Potter and the Half-Blood Prince",
@@ -61,6 +68,7 @@ export default function Main() {
       author: "J.K. Rowling",
       price: "26.99$",
       isOpen: false,
+      id: 5,
     },
     {
       name: "Harry Potter and the Deathly Hallows",
@@ -71,6 +79,7 @@ export default function Main() {
       author: "J.K. Rowling",
       price: "29.99$",
       isOpen: false,
+      id: 6,
     },
   ]);
 
@@ -129,90 +138,14 @@ export default function Main() {
   return (
     <main>
       <h1>Books</h1>
-      <div className="book-list">
-        {books.map((book) => (
-          <div className="book-item" key={book.name}>
-            <img src={book.src} alt={book.name} />
-            {book.isOpen ? (
-              <h2 style={{ fontSize: "15px" }}>{book.name}</h2>
-            ) : (
-              <h2 style={{ fontSize: "20px" }}>{book.name}</h2>
-            )}
-
-            <div>
-              <div
-                onClick={() => {
-                  handleIsOpen(book.name);
-                }}
-              >
-                {book.isOpen ? (
-                  <div>
-                    <p style={{ fontSize: "12px" }}>{book.description}</p>
-                    <p style={{ fontSize: "12px" }}>{book.author}</p>
-                    <p style={{ fontSize: "12px" }}>{book.releaseDate}</p>
-                    <p style={{ fontSize: "20px" }}> {book.price} </p>
-                  </div>
-                ) : (
-                  <button
-                    style={{
-                      border: "gray solid 2px",
-                      borderRadius: "8px",
-                      backgroundColor: "white",
-                    }}
-                  >
-                    Get Detail
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
       <div>
-        <div>
-          <h1>Slider</h1>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div
-              style={{ width: "50px", height: "50px" }}
-              onClick={() => handleSlider("left")}
-            >
-              <img
-                style={{
-                  transform: "scaleX(-1)",
-                  width: "50px",
-                  height: "50px",
-                }}
-                src="https://www.freeiconspng.com/uploads/right-arrow-icon-27.png"
-              />
-            </div>
-
-            <div style={{ position: "relative" }}>
-              <img
-                style={{ width: "1140px", height: "540px" }}
-                src={sliderData[sliderIndex].src}
-                alt="slider"
-              />
-              <p className="slider-text">{sliderData[sliderIndex].name}</p>
-            </div>
-
-            <div
-              style={{ width: "50px", height: "50px" }}
-              onClick={() => handleSlider("right")}
-            >
-              <img
-                style={{ width: "50px", height: "50px" }}
-                src="https://www.freeiconspng.com/uploads/right-arrow-icon-27.png"
-              />
-            </div>
-          </div>
-        </div>
+        <BooksList books={books} handleIsOpen={handleIsOpen} />
       </div>
+      <Slider
+        sliderData={sliderData}
+        sliderIndex={sliderIndex}
+        handleSlider={handleSlider}
+      />
     </main>
   );
 }
