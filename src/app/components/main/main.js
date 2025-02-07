@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Slider from "../slider/Slider";
 import BooksList from "../books/BooksList";
 import BooksForm from "../books/BooksForm";
+import { useBooks } from "../hooks/useBooks";
 
 export default function Main() {
   const [books, setBooks] = useState([
@@ -135,6 +136,12 @@ export default function Main() {
       )
     );
   };
+
+  const [select, setSelect] = useState("");
+  const [search, setSearch] = useState("");
+  const filteredAndSortedBooks = useBooks(search, select, books);
+
+  console.log(filteredAndSortedBooks);
   console.log(books);
   return (
     <main>
@@ -143,8 +150,36 @@ export default function Main() {
         <BooksForm setBooks={setBooks} />
       </div>
       <div>
-        <BooksList books={books} handleIsOpen={handleIsOpen} />
+        <input
+          type="text"
+          placeholder="Search"
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+        />
+        <select
+          value={select}
+          onChange={(e) => {
+            setSelect(e.target.value);
+            console.log(select);
+          }}
+        >
+          <option disabled value="">
+            Выберите значение
+          </option>
+          <option value="name">По названию</option>
+          <option value="description">По описанию</option>
+        </select>
       </div>
+      {books.length > 0 && (
+        <div>
+          <BooksList
+            books={filteredAndSortedBooks}
+            handleIsOpen={handleIsOpen}
+          />
+        </div>
+      )}
       <Slider
         sliderData={sliderData}
         sliderIndex={sliderIndex}
