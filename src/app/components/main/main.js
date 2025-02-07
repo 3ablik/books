@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Slider from "../slider/Slider";
 import BooksList from "../books/BooksList";
+import BooksForm from "../books/BooksForm";
 
 export default function Main() {
   const [books, setBooks] = useState([
@@ -138,6 +139,9 @@ export default function Main() {
   return (
     <main>
       <h1>Books</h1>
+      <div>
+        <BooksForm setBooks={setBooks} />
+      </div>
       <div>
         <BooksList books={books} handleIsOpen={handleIsOpen} />
       </div>
