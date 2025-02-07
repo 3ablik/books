@@ -9,7 +9,7 @@ export default function Main() {
       releaseDate: "1997-06-26",
       src: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg/220px-Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg",
       author: "J.K. Rowling",
-      price: 19.99,
+      price: "19.99$",
       isOpen: false,
     },
     {
@@ -19,7 +19,7 @@ export default function Main() {
       releaseDate: "1998-07-02",
       src: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Harry_Potter_and_the_Chamber_of_Secrets.jpg/220px-Harry_Potter_and_the_Chamber_of_Secrets.jpg",
       author: "J.K. Rowling",
-      price: 21.99,
+      price: "21.99$",
       isOpen: false,
     },
     {
@@ -29,7 +29,7 @@ export default function Main() {
       releaseDate: "1999-07-08",
       src: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a0/Harry_Potter_and_the_Prisoner_of_Azkaban.jpg/220px-Harry_Potter_and_the_Prisoner_of_Azkaban.jpg",
       author: "J.K. Rowling",
-      price: 22.99,
+      price: "22.99$",
       isOpen: false,
     },
     {
@@ -39,7 +39,7 @@ export default function Main() {
       releaseDate: "2000-07-08",
       src: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Harry_Potter_and_the_Goblet_of_Fire_cover.png/220px-Harry_Potter_and_the_Goblet_of_Fire_cover.png",
       author: "J.K. Rowling",
-      price: 24.99,
+      price: "24.99$",
       isOpen: false,
     },
     {
@@ -49,7 +49,7 @@ export default function Main() {
       releaseDate: "2003-06-21",
       src: "https://upload.wikimedia.org/wikipedia/en/7/70/Harry_Potter_and_the_Order_of_the_Phoenix.jpg",
       author: "J.K. Rowling",
-      price: 25.99,
+      price: "25.99$",
       isOpen: false,
     },
     {
@@ -59,7 +59,7 @@ export default function Main() {
       releaseDate: "2005-07-16",
       src: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b5/Harry_Potter_and_the_Half-Blood_Prince_cover.png/220px-Harry_Potter_and_the_Half-Blood_Prince_cover.png",
       author: "J.K. Rowling",
-      price: 26.99,
+      price: "26.99$",
       isOpen: false,
     },
     {
@@ -69,10 +69,54 @@ export default function Main() {
       releaseDate: "2007-07-21",
       src: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Harry_Potter_and_the_Deathly_Hallows.jpg/220px-Harry_Potter_and_the_Deathly_Hallows.jpg",
       author: "J.K. Rowling",
-      price: 29.99,
+      price: "29.99$",
       isOpen: false,
     },
   ]);
+
+  const sliderData = [
+    {
+      name: "Harry Potter in Hogwarts",
+      src: "https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/11/november-14-will-be-a-magical-day-for-harry-potter-fans.jpg?q=70&fit=crop&w=1140&h=&dpr=1",
+      index: 0,
+    },
+    {
+      name: "Harry Potter still in Hogwarts",
+      src: "https://www.afisha.uz/uploads/media/2023/04/361e5fe5da240eee2989ca155c54e005.jpg",
+      index: 1,
+    },
+    {
+      name: "Harry Potter destroyed Voldemort",
+      src: "https://static1.cbrimages.com/wordpress/wp-content/uploads/2023/07/collage-of-harry-potter-and-lord-voldemort-dueling-in-deathly-hallows-part-2-1.jpg?q=70&fit=crop&w=1140&h=&dpr=1",
+      index: 2,
+    },
+  ];
+  const [sliderIndex, setSliderIndex] = useState(0);
+
+  const handleSlider = (direction) => {
+    if (direction === "left") {
+      if (sliderIndex === 0) {
+        setSliderIndex(sliderData.length - 1);
+        console.log(sliderIndex);
+
+        return;
+      } else {
+        setSliderIndex(sliderIndex - 1);
+        console.log(sliderIndex);
+        return;
+      }
+    } else if (direction === "right") {
+      if (sliderIndex === sliderData.length - 1) {
+        setSliderIndex(0);
+        console.log(sliderIndex);
+        return;
+      } else {
+        setSliderIndex(sliderIndex + 1);
+        console.log(sliderIndex);
+        return;
+      }
+    }
+  };
 
   const handleIsOpen = (bookName) => {
     setBooks(
@@ -89,7 +133,11 @@ export default function Main() {
         {books.map((book) => (
           <div className="book-item" key={book.name}>
             <img src={book.src} alt={book.name} />
-            <h2>{book.name}</h2>
+            {book.isOpen ? (
+              <h2 style={{ fontSize: "15px" }}>{book.name}</h2>
+            ) : (
+              <h2 style={{ fontSize: "20px" }}>{book.name}</h2>
+            )}
 
             <div>
               <div
@@ -99,9 +147,10 @@ export default function Main() {
               >
                 {book.isOpen ? (
                   <div>
-                    <p>{book.description}</p>
-                    <p>{book.author}</p>
-                    <p>{book.releaseDate}</p>
+                    <p style={{ fontSize: "12px" }}>{book.description}</p>
+                    <p style={{ fontSize: "12px" }}>{book.author}</p>
+                    <p style={{ fontSize: "12px" }}>{book.releaseDate}</p>
+                    <p style={{ fontSize: "20px" }}> {book.price} </p>
                   </div>
                 ) : (
                   <button
@@ -119,11 +168,51 @@ export default function Main() {
           </div>
         ))}
       </div>
+      <div>
+        <div>
+          <h1>Slider</h1>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{ width: "50px", height: "50px" }}
+              onClick={() => handleSlider("left")}
+            >
+              <img
+                style={{
+                  transform: "scaleX(-1)",
+                  width: "50px",
+                  height: "50px",
+                }}
+                src="https://www.freeiconspng.com/uploads/right-arrow-icon-27.png"
+              />
+            </div>
+
+            <div style={{ position: "relative" }}>
+              <img
+                style={{ width: "1140px", height: "540px" }}
+                src={sliderData[sliderIndex].src}
+                alt="slider"
+              />
+              <p className="slider-text">{sliderData[sliderIndex].name}</p>
+            </div>
+
+            <div
+              style={{ width: "50px", height: "50px" }}
+              onClick={() => handleSlider("right")}
+            >
+              <img
+                style={{ width: "50px", height: "50px" }}
+                src="https://www.freeiconspng.com/uploads/right-arrow-icon-27.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
-// useState
-// isOpen:false для всех
-// находим определенный book
-// меняем поле false=>true
-// true/false показываем/не показываем
