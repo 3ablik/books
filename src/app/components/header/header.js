@@ -6,8 +6,8 @@ export default function Header() {
       <nav>
         <div>
           <a href="#">Home</a>
-          <a href="#">Contacts</a>
-          <a href="#">Other</a>
+          <a href="#">Sign In</a>
+          <a href="#">Sign Up</a>
         </div>
         <div>
           <p>+78978978978</p>

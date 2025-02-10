@@ -6,7 +6,6 @@ import Footer from "./components/footer/footer.js";
 export default function Home() {
   return (
     <div>
-      <Header />
       <Main />
       <Footer />
     </div>
