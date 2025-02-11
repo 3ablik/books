@@ -1,17 +1,22 @@
 "use client";
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
 
 const AuthContext = createContext({ isAuthenticated: false, login: () => {} });
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const login = () => {
-    setIsAuthenticated(true);
+  const auth = () => {
+    setIsAuthenticated((prevState) => {
+      const newState = !prevState;
+      return newState;
+    });
   };
 
+  useEffect(() => {}, [isAuthenticated]);
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login }}>
+    <AuthContext.Provider value={{ isAuthenticated, auth }}>
       {children}
     </AuthContext.Provider>
   );

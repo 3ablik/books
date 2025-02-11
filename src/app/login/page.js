@@ -1,23 +1,39 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
   const router = useRouter();
-  const { isAuthenticated, login } = useAuth();
-  console.log(isAuthenticated, "isAuth");
+  const { isAuthenticated, auth } = useAuth();
+  const [isManualLogin, setIsManualLogin] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    const fromUserClick = localStorage.getItem("fromUserClick");
+
+    if (fromUserClick === "true") {
+      setIsManualLogin(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(isAuthenticated, "isauth");
+    console.log(isManualLogin, "Check");
+
+    if (isAuthenticated && !isManualLogin) {
+      localStorage.removeItem("fromUserClick");
       router.push("/");
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, router, isManualLogin]);
+
+  useEffect(() => {
+    auth();
+  }, []);
 
   return (
     <div>
       <h1>Login</h1>
-      <button onClick={login}>Login</button>
+      <button onClick={auth}>Login</button>
     </div>
   );
 };
