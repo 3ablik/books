@@ -8,7 +8,6 @@ export default function Register() {
     <div>
       <h1>Register</h1>
       <RegisterForm />
-      <Link href="/login">Have account?</Link>
     </div>
   );
 }

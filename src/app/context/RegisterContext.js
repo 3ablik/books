@@ -13,19 +13,19 @@ export const RegisterProvider = ({ children }) => {
     },
   ]);
 
-  const [user, setUser] = useState({});
+  const [userReg, setUserReg] = useState({});
 
   const addAccount = (login, email, password) => {
     setAccounts((prev) => {
       const newId = prev.length;
       const newAccount = { login, email, password, id: newId };
-      setUser(newAccount);
+      setUserReg(newAccount);
       return [...prev, newAccount];
     });
   };
 
   return (
-    <RegisterContext.Provider value={{ accounts, addAccount, user }}>
+    <RegisterContext.Provider value={{ accounts, addAccount, userReg }}>
       {children}
     </RegisterContext.Provider>
   );

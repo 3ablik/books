@@ -1,25 +1,32 @@
 "use client";
 import React, { useState, useContext, createContext, useEffect } from "react";
 
-const AuthContext = createContext({ isAuthenticated: false, auth: () => {} });
+const AuthContext = createContext({
+  isAuthenticated: false,
+  auth: () => {},
+  userAuth: {},
+  setIsAuthenticated: () => {},
+});
 
 export const AuthProvider = ({ children }) => {
   console.log("AuthProvider");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const auth = () => {
+  const [userAuth, setUserAuth] = useState({});
+
+  const auth = (userData) => {
     setIsAuthenticated(true);
+    setUserAuth(userData);
   };
-  useEffect(() => {
-    console.log("Auth state changed:", isAuthenticated);
-  }, [isAuthenticated]);
 
   useEffect(() => {
     console.log(isAuthenticated);
   }, [isAuthenticated]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, auth }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, auth, userAuth, setIsAuthenticated }}
+    >
       {children}
     </AuthContext.Provider>
   );

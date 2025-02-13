@@ -3,53 +3,58 @@ import React from "react";
 import { useRegister } from "../context/RegisterContext";
 import { useAuth } from "../context/AuthContext";
 import Link from "next/link";
+import styled from "styled-components";
+
+const StyledLink = styled(Link)`
+  display: inline-block;
+  line-height: 42px;
+  margin: 0;
+  text-align: center;
+  background-color: #ffffff;
+  color: #171717;
+  border: 3px solid #171717;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: backgroundColor 0.3s;
+  width: 120px;
+  font-size: 15px;
+  font-weight: 300;
+`;
 
 const Profile = () => {
-  const { user } = useRegister();
-  console.log(user);
+  const { userReg } = useRegister();
+  const { isAuthenticated, userAuth, setIsAuthenticated } = useAuth();
 
-  const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated);
+  userAuth ? console.log(userAuth.login) : console.log(userReg.name);
 
   return (
     <div>
       <h1>Profile</h1>
       {isAuthenticated ? (
         <div>
-          <h3>Login: {user.login}</h3>
-          <h3>Email: {user.email}</h3>
+          {userAuth ? (
+            <div>
+              <h3>Login: {userAuth.login}</h3>
+              <h3>Email: {userAuth.email}</h3>
+            </div>
+          ) : (
+            <div>
+              <h3>Login: {userReg.login}</h3>
+              <h3>Email: {userReg.email}</h3>
+            </div>
+          )}
+          <button
+            onClick={() => {
+              setIsAuthenticated(false);
+            }}
+            style={{ backgroundColor: "red" }}
+          >
+            Exit
+          </button>
         </div>
       ) : (
         <div>
-          <h3>Maybe sign in account?</h3>
-          <Link
-            href="login"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "10px",
-              width: "100px",
-              height: "50px",
-              backgroundColor: "lightgray",
-              border: "1px, solid, gray",
-            }}
-          >
-            <button
-              style={{
-                padding: "0.75rem 1.5rem",
-                backgroundColor: "#ffffff",
-                color: "#171717",
-                border: "none",
-                borderRadius: "4px",
-                fontSize: "1rem",
-                cursor: "pointer",
-                transition: "backgroundColor 0.3s",
-              }}
-            >
-              Sign In!
-            </button>
-          </Link>
+          <StyledLink href="/login">Maybe sign in?</StyledLink>
         </div>
       )}
     </div>

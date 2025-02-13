@@ -7,10 +7,11 @@ import { useAuth } from "../../context/AuthContext";
 import { useRegister } from "@/app/context/RegisterContext";
 
 export default function Main() {
-  const { isAuthenticated, auth } = useAuth();
-  const { accounts, user } = useRegister();
+  const { isAuthenticated, userAuth } = useAuth();
+  const { accounts, userReg } = useRegister();
   console.log(isAuthenticated);
-  console.log(accounts, user);
+  console.log(accounts, userReg);
+  console.log(accounts, userAuth);
 
   const [books, setBooks] = useState([
     {
@@ -150,14 +151,22 @@ export default function Main() {
 
   console.log(filteredAndSortedBooks);
   console.log(books);
+
   return (
     <main>
       <h1>Books</h1>
       <div>
         <BooksForm setBooks={setBooks} />
       </div>
-      <div>
+      <div
+        style={{
+          display: "flex",
+          width: "1210px",
+          justifyContent: "space-between",
+        }}
+      >
         <input
+          style={{ height: "35px", border: "3px solid black", width: "200px" }}
           type="text"
           placeholder="Search"
           value={search}
@@ -166,6 +175,7 @@ export default function Main() {
           }}
         />
         <select
+          style={{ height: "35px" }}
           value={select}
           onChange={(e) => {
             setSelect(e.target.value);
@@ -173,10 +183,10 @@ export default function Main() {
           }}
         >
           <option disabled value="">
-            Выберите значение
+            Sort
           </option>
-          <option value="name">По названию</option>
-          <option value="description">По описанию</option>
+          <option value="name">By description</option>
+          <option value="description">By name</option>
         </select>
       </div>
       {books.length > 0 && (

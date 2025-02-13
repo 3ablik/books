@@ -6,6 +6,12 @@ import { useRegister } from "../context/RegisterContext";
 import Link from "next/link";
 import styled from "styled-components";
 
+const StyledLink = styled(Link)`
+  display: inline-block;
+  line-height: 42px;
+  background-color: #171717;
+`;
+
 const LoginForm = () => {
   const router = useRouter();
   const [login, setLogin] = useState("");
@@ -24,21 +30,15 @@ const LoginForm = () => {
   };
 
   const handleAccount = () => {
-    accounts.filter((account) => {
-      if (account.login == login) {
-        if (account.password == password) {
-          auth();
-        } else {
-          setWrong(true);
-        }
-      }
-    });
+    const foundUser = accounts.find(
+      (account) => account.login === login && account.password === password
+    );
+    if (foundUser) {
+      auth(foundUser);
+    } else {
+      setWrong(true);
+    }
   };
-
-  const StyledLink = styled(Link)`
-    display: flex;
-    align-items: center;
-  `;
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -47,7 +47,7 @@ const LoginForm = () => {
   }, [isAuthenticated, router]);
 
   return (
-    <div className="login-form">
+    <div className="login-form" style={{ height: "300px" }}>
       <div>
         <input onChange={handleLogin} placeholder="Login" type="text" />
         <input onChange={handlePassword} placeholder="Password" type="text" />
@@ -62,21 +62,23 @@ const LoginForm = () => {
       >
         <button onClick={handleAccount}>Login</button>
         <StyledLink href="/register">
-          <h1
+          <div
             style={{
+              margin: "0",
+              textAlign: "center",
               backgroundColor: "#ffffff",
               color: "#171717",
               border: "none",
               borderRadius: "4px",
-              fontSize: "1rem",
               cursor: "pointer",
               transition: "backgroundColor 0.3s",
-              height: "20px",
               width: "120px",
+              fontSize: "15px",
+              fontWeight: "300",
             }}
           >
             No account?
-          </h1>
+          </div>
         </StyledLink>
       </div>
 

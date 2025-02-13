@@ -3,6 +3,14 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useRegister } from "../context/RegisterContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import styled from "styled-components";
+
+const StyledLink = styled(Link)`
+  display: inline-block;
+  line-height: 42px;
+  background-color: #171717;
+`;
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -42,7 +50,35 @@ const RegisterForm = () => {
         <input onChange={handleEmail} placeholder="E-mail" type="text" />
         <input onChange={handlePassword} placeholder="Password" type="text" />
       </div>
-      <button onClick={handleNewAccount}>Register</button>
+      <div
+        style={{
+          display: "flex",
+          width: "300px",
+          justifyContent: "space-around",
+          alignItems: "center",
+        }}
+      >
+        <button onClick={handleNewAccount}>Register</button>
+        <StyledLink href="/login">
+          <div
+            style={{
+              margin: "0",
+              textAlign: "center",
+              backgroundColor: "#ffffff",
+              color: "#171717",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              transition: "backgroundColor 0.3s",
+              width: "120px",
+              fontSize: "15px",
+              fontWeight: "300",
+            }}
+          >
+            Have account?
+          </div>
+        </StyledLink>
+      </div>
     </div>
   );
 };
