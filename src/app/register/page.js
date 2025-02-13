@@ -1,21 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import RegisterForm from "./RegisterForm";
-
-export const accountsData = [
-  {
-    login: "admin",
-    email: "admin@admin.admin",
-    password: "admin123",
-  },
-];
+import Link from "next/link";
 
 export default function Register() {
-  const [accounts, setAccounts] = useState(accountsData);
-
   return (
     <div>
-      <RegisterForm accounts={accounts} setAccounts={setAccounts} />
+      <h1>Register</h1>
+      <RegisterForm />
+      <Link href="/login">Have account?</Link>
     </div>
   );
 }

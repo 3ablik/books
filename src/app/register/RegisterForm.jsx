@@ -1,14 +1,18 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useRegister } from "../context/RegisterContext";
 import { useRouter } from "next/navigation";
 
-const RegisterForm = ({ accounts, setAccounts }) => {
+const RegisterForm = () => {
   const router = useRouter();
+
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const { isAuthenticated, auth } = useAuth();
+  const { addAccount } = useRegister();
 
   const handleLogin = (e) => {
     setLogin(e.target.value);
@@ -21,18 +25,10 @@ const RegisterForm = ({ accounts, setAccounts }) => {
   };
 
   const handleNewAccount = () => {
-    setAccounts((accounts) => [
-      ...accounts,
-      {
-        login: login,
-        email: email,
-        password: password,
-        id: accounts.length,
-      },
-    ]);
-    console.log(accounts);
+    addAccount(login, email, password);
     auth();
   };
+
   useEffect(() => {
     if (isAuthenticated) {
       router.push("/");
@@ -40,7 +36,7 @@ const RegisterForm = ({ accounts, setAccounts }) => {
   }, [isAuthenticated, router]);
 
   return (
-    <div>
+    <div className="register-form">
       <div>
         <input onChange={handleLogin} placeholder="Login" type="text" />
         <input onChange={handleEmail} placeholder="E-mail" type="text" />

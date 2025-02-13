@@ -3,8 +3,15 @@ import Slider from "../slider/Slider";
 import BooksList from "../books/BooksList";
 import BooksForm from "../books/BooksForm";
 import { useBooks } from "../hooks/useBooks";
+import { useAuth } from "../../context/AuthContext";
+import { useRegister } from "@/app/context/RegisterContext";
 
 export default function Main() {
+  const { isAuthenticated, auth } = useAuth();
+  const { accounts, user } = useRegister();
+  console.log(isAuthenticated);
+  console.log(accounts, user);
+
   const [books, setBooks] = useState([
     {
       name: "Harry Potter and the Sorcerer's Stone",
