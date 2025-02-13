@@ -2,13 +2,13 @@
   "name": "dz1",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://3ablik.github.io/books/",
+  "homepage": "https://3ablik.github.io/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "predeploy": "next build && next export",
+    "predeploy": "next build",
     "deploy": "gh-pages -d out"
   },
   "dependencies": {
