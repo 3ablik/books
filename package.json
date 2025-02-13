@@ -2,16 +2,22 @@
   "name": "dz1",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://3ablik.github.io/books/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "next build && next export",
+    "deploy": "gh-pages -d out"
   },
   "dependencies": {
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "styled-components": "^6.1.15"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
