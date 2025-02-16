@@ -15,7 +15,7 @@ export default function Main() {
 
   const [books, setBooks] = useState([
     {
-      name: "Harry Potter and the Sorcerer's Stone",
+      name: "Harry Potter and the Sorcerer's Stonea",
       description:
         "The first book in the series, where Harry discovers he is a wizard and attends Hogwarts School of Witchcraft and Wizardry.",
       releaseDate: "1997-06-26",
